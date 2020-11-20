@@ -18,7 +18,7 @@ api = tweepy.API(auth)
 def timeline():
     public_tweets = api.home_timeline()
     for tweet in public_tweets:
-        print(tweet)
+        print(tweet.text)
 
 
 def dms():
@@ -31,12 +31,12 @@ def user(user):
     print(user.screen_name)
     print(user.followers_count)
     for friend in user.friends():
-        print(friend.id)
+        print("user", friend.screen_name)
 
 
 def main():
     # timeline()
-    Fire(user)
+    # Fire(user)
     # dms()
 
 
