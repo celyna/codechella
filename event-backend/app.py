@@ -1,22 +1,25 @@
 from flask import Flask
-app = Flask(__name__)
-
 import tweepy
-import api
 import os
 from collections import defaultdict
 from nltk import word_tokenize, sent_tokenize
 
-consumer_key = api.api_key
-consumer_secret = api.api_key_secret
-access_token = api.access_token
-access_token_secret = api.access_token_secret
+
+app = Flask(__name__)
+app.secret_key = 'my secret key'
+app.config.from_pyfile('config.py')
+
+consumer_key = app.config['API_KEY']
+consumer_secret = app.config['API_SECRET_KEY']
+access_token = app.config['ACCESS_TOKEN']
+access_token_secret = app.config['ACCESS_TOKEN_SECRET']
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 emolex_file = os.path.join('emolex.txt')
+
 
 def read_emolex(filepath=None):
     '''
@@ -54,15 +57,15 @@ def tokenize_text(text, stopwords=None):
 
 def sentiment_score(token_list, lexicon=None):
     output = {
-        'anger': 0.0, 
-        'anticipation': 0.0, 
-        'disgust': 0.0, 
-        'fear': 0.0, 
-        'joy': 0.0, 
-        'negative': 0.0, 
-        'positive': 0.0, 
-        'sadness': 0.0, 
-        'surprise': 0.0, 
+        'anger': 0.0,
+        'anticipation': 0.0,
+        'disgust': 0.0,
+        'fear': 0.0,
+        'joy': 0.0,
+        'negative': 0.0,
+        'positive': 0.0,
+        'sadness': 0.0,
+        'surprise': 0.0,
         'trust': 0.0
     }
     emolex = read_emolex(emolex_file)
@@ -73,21 +76,20 @@ def sentiment_score(token_list, lexicon=None):
                     output.update({emo: emolex[token.lower()].get(emo) / len(token_list)})
     return output
 
+
 class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
-        for sent in enumerate(tokenize_text(status.text)):
-            print("Sent:", sent[0], "\tSentiment:", sentiment_score(sent[1]))
-            print("\t") 
-        # print(tokenize_text(status.text))
-        # print(status.text)
+        print(status.text)
 
-app = Flask(__name__)
-app.secret_key='my secret key'
 
-if __name__ == '__main__':
+def get_tweets():
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
     myStream.filter(track=['machine learning'])
-    app.run(debug=True)
-    # print(read_emolex(emolex_file))
+    return myStream
+
+
+@app.route('/')
+def index():
+    return get_tweets()
