@@ -1,20 +1,20 @@
-from nltk import word_tokenize, sent_tokenize
-from collections import defaultdict
-import os
+import time
 import tweepy
+import key
+import os
+import dataset
+from flask import Flask
+from flask import request
+from flask import jsonify
+from flask_cors import CORS
+
+import json
+
+app = Flask(__name__)
+CORS(app)
 
 
-consumer_key = key.api_key
-consumer_secret = key.api_key_secret
-access_token = key.access_token
-access_token_secret = key.access_token_secret
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-
-api = tweepy.API(auth)
-emolex_file = os.path.join('emolex.txt')
-emolex_file = os.path.join('emolex.txt')
 
 
 def read_emolex(filepath=None):
@@ -76,47 +76,34 @@ def sentiment_score(token_list, lexicon=None):
 
 
 
-def get_tweet(tweet):
-    name = tweet.user.name
-    screen_name = tweet.user.screen_name
-    location = tweet.user.location
-    text = tweet.text
-    likes_count = tweet.favorite_count
-    created_at = tweet.created_at
-    coordinates = tweet.coordinates
-    quote_count = tweet.quote_count
-    reply_count = tweet.reply_count
-    retweet_count = tweet.retweet_count
-    token = tokenize_text(text)
-    sentiment = sentiment_score(token)
-    if coordinates is not None:
-        coordinates = json.dumps(coordinates)
-    with dataset.connect() as tx:
-        tx['tweets'].insert(
-            dict(
-                user_name=name,
-                user_handle=screen_name,
-                user_location=location,
-                tweet_text=text,
-                tweet_likes=likes_count,
-                tweet_time=created_at,
-                tweet_coords=coordinates,
-                tweet_quote_count=quote_count,
-                tweet_reply_count=reply_count,
-                tweet_retweet_count=retweet_count,
-                tweet_sentiment=sentiment
-            )
-        )
+@app.route('/')
+def index():
+    myStreamListener = MyStreamListener()
+    myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+    myStream.filter(track=['twitter'], is_async=True)
+    return jsonify(myStream)
 
 
-class MyStreamListener(tweepy.StreamListener):
+@app.route('/time')
+def get_current_time():
+    return {'time': time.time()}
 
-    def on_status(self, status):
-        get_tweet(status)
 
-    def on_error(self, status_code):
-        if status_code == 420:
-            return False
+@app.route('/result', methods=['POST'])
+def getEvent():
+    # data = request.json
+    myStreamListener = MyStreamListener()
+    myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+    # myStream.filter(track=[data.get('event')])
+    myStream.filter(track=['python'])
+    app.run(debug=True)
 
-if __name__ == '__main__':
+    return "OK"
 
+# if __name__ == '__main__':
+#     print("starting")
+#     myStreamListener = MyStreamListener()
+#     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+#     myStream.filter(track=['machine learning'])
+#     app.run(debug=True)
+    # print(read_emolex(emolex_file))
