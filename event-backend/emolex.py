@@ -1,6 +1,20 @@
 from nltk import word_tokenize, sent_tokenize
 from collections import defaultdict
 import os
+import tweepy
+import json
+import key
+import dataset
+
+consumer_key = key.api_key
+consumer_secret = key.api_key_secret
+access_token = key.access_token
+access_token_secret = key.access_token_secret
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+api = tweepy.API(auth)
 emolex_file = os.path.join('emolex.txt')
 
 
@@ -61,3 +75,56 @@ def sentiment_score(token_list, lexicon=None):
                     output.update({emo: emolex[token.lower()].get(emo) / len(token_list)})
     return output
 
+
+def get_tweet(tweet):
+    name = tweet.user.name
+    screen_name = tweet.user.screen_name
+    location = tweet.user.location
+    text = tweet.text
+    likes_count = tweet.favorite_count
+    created_at = tweet.created_at
+    coordinates = tweet.coordinates
+    quote_count = tweet.quote_count
+    reply_count = tweet.reply_count
+    retweet_count = tweet.retweet_count
+    token = tokenize_text(text)
+    sentiment = sentiment_score(token)
+    db = dataset.connect("sqlite:///tweets.db")
+    if coordinates is not None:
+        coordinates = json.dumps(coordinates)
+    table = db["tweets"]
+    table.insert(
+            dict(
+                user_name=name,
+                user_handle=screen_name,
+                user_location=location,
+                tweet_text=text,
+                tweet_likes=likes_count,
+                tweet_time=created_at,
+                tweet_coords=coordinates,
+                tweet_quote_count=quote_count,
+                tweet_reply_count=reply_count,
+                tweet_retweet_count=retweet_count,
+                tweet_sentiment=sentiment
+            )
+        )
+
+
+class MyStreamListener(tweepy.StreamListener):
+
+    def on_status(self, status):
+        get_tweet(status)
+
+    def on_error(self, status_code):
+        if status_code == 420:
+            return False
+
+
+def main():
+    myStreamListener = MyStreamListener()
+    myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+    myStream.filter(track=['twitter'], is_async=True)
+
+
+if __name__ == '__main__':
+    main()
