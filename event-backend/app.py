@@ -1,3 +1,6 @@
+from flask import Flask
+app = Flask(__name__)
+
 import tweepy
 import api
 import os
@@ -79,9 +82,12 @@ class MyStreamListener(tweepy.StreamListener):
         # print(tokenize_text(status.text))
         # print(status.text)
 
+app = Flask(__name__)
+app.secret_key='my secret key'
 
 if __name__ == '__main__':
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
     myStream.filter(track=['machine learning'])
+    app.run(debug=True)
     # print(read_emolex(emolex_file))
