@@ -3,16 +3,16 @@ import api
 from fire import Fire
 
 
-consumer_key = api.api_key
-consumer_secret = api.api_key_secret
-access_token = api.access_token
-access_token_secret = api.access_token_secret
+consumer_key = api_key
+consumer_secret = api_key_secret
+access_token = access_token
+access_token_secret = access_token_secret
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
-api = tweepy.API(auth)
+# api = tweepy.API(auth)
 
 
 def timeline():

@@ -89,7 +89,7 @@ class MyStreamListener(tweepy.StreamListener):
 
 @app.route('/')
 def default():
-    return {'time': 'hi'}
+    return "Default"
 
 if __name__ == '__main__':
     myStreamListener = MyStreamListener()
