@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 //Import Pages
 import Home from './pages/Home';
+import Events from './pages/Events';
 
 //Other Imports
 import {
@@ -42,11 +43,12 @@ class App extends React.Component{
             <Navbar.Collapse id="navbar-toggle">
                 <Nav className="ml-auto">
                     <h5> <Link className="nav-link display-5 font-weight-semibold subheading" to="/">Home</Link></h5>
-                    <h5> <Link className="nav-link display-5 font-weight-semibold subheading" to="/">Events</Link></h5>
+                    <h5> <Link className="nav-link display-5 font-weight-semibold subheading" to="/Events">Events</Link></h5>
                 </Nav>
             </Navbar.Collapse>
             </Navbar>
             <Route path="/" exact render={() => <Home />} />
+            <Route path="/Events" exact render={() => <Events />} />
         </Container>
       </Router>
     );

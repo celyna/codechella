@@ -1,0 +1,25 @@
+const events = [
+    {
+        "Event Name": "Political Forum: Current Events (Zoom)",
+        "Picture": "pictures/demsabroadfrance.jpg",
+        "About": "Join Political Forum host Jean-Pierre LaRochelle as he brings the popular Paris political discussion group online, to discuss the most pressing news and events of the day. Questions? jeanpierre-paris@hotmail.fr."
+    },
+    {
+        "Event Name": "PressBay Thanksgiving Market",
+        "Time": "11/24/2020 at 3:30PM ET",
+        "Picture": "pictures/pressbay.jpg",
+        "About": "PressBay's beloved annual pop-up farmer's market is ON for 2020. This market features PressBay tenants and Food Hub vendors, with special guests. Stock up! Farms and vendors will take pre-orders or offer direct sales onsite (physically distanced throughout the Court, Alley and our Geneva St parking lot)!"
+    },
+    {
+        "Event Name": "Gift of Lights",
+        "Time": "11/21/2020 at 5:30PM ET",
+        "Picture": "pictures/giftoflights.jpg",
+        "About": "Gift of Lights is a family-friendly drive-thru holiday light display with two tunnels and over 300 animated and static light displays! Enjoy this holiday spectacle from inside the comfort of your own vehicle and tune into Gift of Lights Radio at 103.3FM."
+    },
+    {
+        "Event Name": "Saturdays at the Ithaca Farmers Market",
+        "Time": "11/21/2020 at 10AM ET",
+        "Picture": "pictures/satmarket.jpg",
+        "About": "Visit the farmers market every Saturday, rain or shine, at the pavilion. Old favorites and new vendors will be there to welcome you back for another year full of makers, farmers, chefs and community! Our outdoor Saturday market runs from April to December!"
+    }
+]
