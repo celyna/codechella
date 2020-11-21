@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css';
+import axios from 'axios';
 
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,12 +27,17 @@ class App extends React.Component{
     }
   }
 
-  // componentDidMount(){
-  //   axios.get(``)
-  //     .then(res => {
-  //       this.setState({data: res.json()})
-  //     })
-  // }
+  async componentDidMount(){
+    await axios.post('/result', {
+      event: 'codechella'
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render(){
     return(
