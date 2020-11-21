@@ -24,7 +24,7 @@ class Home extends React.Component{
                     <div className='col-md' style={{marginLeft: '20%'}}>
                         <img alt="vector" className='photo mr-1' src={vector} />
                     </div>
-                </div>   
+                </div>
             </div>
         );
     }

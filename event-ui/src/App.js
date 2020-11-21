@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 //Import Pages
 import Home from './pages/Home';
+import Events from './pages/Events';
 
 //Other Imports
 import {
