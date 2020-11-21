@@ -29,7 +29,7 @@ class App extends React.Component{
 
   async componentDidMount(){
     await axios.post('/result', {
-      event: 'codechella'
+      event: 'Taiwan'
     })
     .then(function (response) {
       console.log(response);
