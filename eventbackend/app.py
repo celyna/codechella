@@ -1,11 +1,12 @@
-from flask import Flask
+from flask import Flask, jsonify
 app = Flask(__name__)
 
 import tweepy
-import api
+import eventbackend.api as api
 import os
 from collections import defaultdict
 from nltk import word_tokenize, sent_tokenize
+from flask import jsonify
 
 consumer_key = api.api_key
 consumer_secret = api.api_key_secret
@@ -75,6 +76,7 @@ def sentiment_score(token_list, lexicon=None):
 
 class MyStreamListener(tweepy.StreamListener):
 
+    # @app.route('/')
     def on_status(self, status):
         for sent in enumerate(tokenize_text(status.text)):
             print("Sent:", sent[0], "\tSentiment:", sentiment_score(sent[1]))
@@ -82,12 +84,17 @@ class MyStreamListener(tweepy.StreamListener):
         # print(tokenize_text(status.text))
         # print(status.text)
 
-app = Flask(__name__)
-app.secret_key='my secret key'
+# app = Flask(__name__)
+# app.secret_key='my secret key'
+
+@app.route('/')
+def default():
+    return "Default"
 
 if __name__ == '__main__':
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
     myStream.filter(track=['machine learning'])
+    print(read_emolex(emolex_file))
     app.run(debug=True)
-    # print(read_emolex(emolex_file))
+
