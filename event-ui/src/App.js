@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css';
+import axios from 'axios';
 
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,17 +22,7 @@ import Nav from 'react-bootstrap/Nav';
 class App extends React.Component{
   constructor(props){
     super(props)
-    this.state = {
-      data: null,
-    }
   }
-
-  // componentDidMount(){
-  //   axios.get(``)
-  //     .then(res => {
-  //       this.setState({data: res.json()})
-  //     })
-  // }
 
   render(){
     return(
