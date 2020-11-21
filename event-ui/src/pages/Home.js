@@ -2,6 +2,7 @@ import React from 'react';
 
 //Import components
 import HomeHero from '../components/HomeHero';
+import SearchBar from '../components/Searchbar';
 
 //assets
 import vector from '../assets/vector.png';
@@ -20,6 +21,7 @@ class Home extends React.Component{
                 <div className='row align-items-center' style={{width: '100%'}}>
                     <div className='col-md'>
                         <HomeHero />
+                        <SearchBar />
                     </div>
                     <div className='col-md' style={{marginLeft: '20%'}}>
                         <img alt="vector" className='photo mr-1' src={vector} />

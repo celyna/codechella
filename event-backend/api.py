@@ -9,6 +9,7 @@ from flask import request
 from flask import jsonify
 
 from nltk import word_tokenize, sent_tokenize
+from collections import defaultdict
 
 app = Flask(__name__)
 
@@ -79,13 +80,27 @@ def sentiment_score(token_list, lexicon=None):
     return output
 
 class MyStreamListener(tweepy.StreamListener):
-
     def on_status(self, status):
+        counter = 0;
+        sentArr = []
         for sent in enumerate(tokenize_text(status.text)):
-            print("Sent:", sent[0], "\tSentiment:", sentiment_score(sent[1]))
-            print("\t") 
+            if(counter < 5):
+                sentArr.append(sentiment_score(sent[1]))
+                counter += 1
+                if(len(sentArr) == 1):
+                    passData(sentArr)
+                    break
+                # print("Sent:", sent[0], "\tSentiment:", sentiment_score(sent[1]))
+                # print("\t") 
+            else:
+                break
         # print(tokenize_text(status.text))
         # print(status.text)
+    
+
+@app.route('/search')
+def passData(arr):
+    return {'sentiments': arr}
 
 @app.route('/time')
 def get_current_time():
@@ -94,9 +109,10 @@ def get_current_time():
 @app.route('/result', methods = ['POST'])
 def getEvent():
     data = request.json
+    dataStr = str(data.get('event'));
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
-    myStream.filter(track=[data.get('event')])
+    myStream.filter(track=[dataStr])
     app.run(debug=True)
     
     return "OK"

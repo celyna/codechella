@@ -22,21 +22,6 @@ import Nav from 'react-bootstrap/Nav';
 class App extends React.Component{
   constructor(props){
     super(props)
-    this.state = {
-      data: null,
-    }
-  }
-
-  async componentDidMount(){
-    await axios.post('/result', {
-      event: 'Taiwan'
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   render(){
