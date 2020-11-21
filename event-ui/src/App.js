@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css';
+import axios from 'axios';
 
 //Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,7 +16,7 @@ import {
   Link
 } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/NavBar';
+import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
 class App extends React.Component{
@@ -26,12 +27,17 @@ class App extends React.Component{
     }
   }
 
-  // componentDidMount(){
-  //   axios.get(``)
-  //     .then(res => {
-  //       this.setState({data: res.json()})
-  //     })
-  // }
+  async componentDidMount(){
+    await axios.post('/result', {
+      event: 'codechella'
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render(){
     return(
