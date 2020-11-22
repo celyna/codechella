@@ -6,6 +6,13 @@ import DemsAbroad from '../assets/demsabroadfrance.jpg';
 import GiftofLights from '../assets/giftoflights.jpg';
 import SatMarket from '../assets/satmarket.jpg';
 
+import {
+    BrowserRouter as Router,
+    Link,
+    Route,
+    Switch,
+  } from 'react-router-dom';
+
 var events = [
     {
         "Event Name": "Political Forum: Current Events (Zoom)",
@@ -54,3 +61,4 @@ class Events extends React.Component{
     }
 }
 export default Events;
+export {events};

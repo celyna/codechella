@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //Import Pages
 import Home from './pages/Home';
 import Events from './pages/Events';
+import EventDetails from './pages/EventsDetails'
 
 //Other Imports
 import {
@@ -49,6 +50,7 @@ class App extends React.Component{
             </Navbar>
             <Route path="/" exact render={() => <Home />} />
             <Route path="/Events" exact render={() => <Events />} />
+            <Route path="/EventDetails/:event" component={EventDetails} />
         </Container>
       </Router>
     );
