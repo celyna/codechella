@@ -79,16 +79,21 @@ def sentiment_score(token_list, lexicon=None):
                     output.update({emo: emolex[token.lower()].get(emo) / len(token_list)})
     return output
 
+sentArr = []
 class MyStreamListener(tweepy.StreamListener):
+   
+
+    @app.route('/search')
+    def passData():
+        return {'sentiments': sentArr}
+    
     def on_status(self, status):
         counter = 0;
-        sentArr = []
         for sent in enumerate(tokenize_text(status.text)):
             if(counter < 5):
                 sentArr.append(sentiment_score(sent[1]))
                 counter += 1
                 if(len(sentArr) == 1):
-                    passData(sentArr)
                     break
                 # print("Sent:", sent[0], "\tSentiment:", sentiment_score(sent[1]))
                 # print("\t") 
@@ -98,9 +103,6 @@ class MyStreamListener(tweepy.StreamListener):
         # print(status.text)
     
 
-@app.route('/search')
-def passData(arr):
-    return {'sentiments': arr}
 
 @app.route('/time')
 def get_current_time():

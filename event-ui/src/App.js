@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 //Import Pages
 import Home from './pages/Home';
+import EventOverview from './pages/eventOverview'; 
 
 //Other Imports
 import {
@@ -38,6 +39,7 @@ class App extends React.Component{
             </Navbar.Collapse>
             </Navbar>
             <Route path="/" exact render={() => <Home />} />
+            <Route path="/eventOverview/:event" component={EventOverview} />
         </Container>
       </Router>
     );
