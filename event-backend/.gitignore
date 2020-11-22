@@ -1,3 +1,6 @@
 venv
 __pycache__
 key
+tweets.db
+tweets.db-shm
+tweets.db-wal
