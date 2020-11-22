@@ -8,6 +8,10 @@ import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Row2 from '../components/Row'
 
+import {events} from './Events.js'
+import * as d3 from 'd3';
+<script src='https://d3js.org/d3.v4.min.js'></script> 
+
 
 class eventOverview extends React.Component{
     
@@ -24,10 +28,51 @@ class eventOverview extends React.Component{
             sadness: 0.0, 
             surprise: 0.0, 
             trust: 0.0,
-            tweets: []
+            tweets: [],
+            name: '',
+            img: '',
+            time: '',
+            about: ''
         }
+
+        this.myRef = React.createRef();
+        this.dataset = [{"key": "a", "value": 9}, {"key": "b", "value": 20}, {"key": "c", "value": 30}, {"key": "d", "value": 8}, {"key": "e", "value": 12}]
     }
     async componentDidMount(){
+        var width = 350;
+        var height = 350;
+        var radius = Math.min(width, height) / 2;
+
+        var svg = d3.select(this.myRef.current)
+            .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+            .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        var color = d3.scaleOrdinal()
+            .domain(this.dataset)
+            .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
+
+        var pie = d3.pie()
+            .value(function(d) {return d.value; });
+
+        var data_ready = pie(this.dataset);
+        console.log(data_ready);
+        svg
+            .selectAll('whatever')
+            .data(data_ready)
+            .enter()
+            .append('path')
+            .attr('d', d3.arc()
+                .innerRadius(0)
+                .outerRadius(radius)
+            )
+            .attr('fill', function(d){ return(color(d.data.key)) })
+            .attr("stroke", "black")
+            .style("stroke-width", "2px")
+            .style("opacity", 0.7);
+
         await axios.get('/tweets')
             .then(res => {
                 console.log(res.data.tweets)
@@ -82,50 +127,36 @@ class eventOverview extends React.Component{
                         <Col>
                             <h5>Anger</h5>
                             <ProgressBar variant="success" now={this.state.anger * 10} label={`${this.state.anger * 100}%`} />
-                        </Col>
-                        <Col>
-                            <h5>Anticipation</h5>
+
+                            <h5 className="mt-3">Anticipation</h5>
                             <ProgressBar variant="success" now={this.state.anticipation * 10} label={`${this.state.anticipation * 100}%`} />
-                        </Col>
-                    </Row>
-                    <Row className="mt-5">
-                        <Col>
-                            <h5>Disgust</h5>
+
+                            <h5 className="mt-3">Disgust</h5>
                             <ProgressBar variant="success" now={this.state.disgust * 10} label={`${this.state.disgust * 10}%`}  />
-                        </Col>
-                        <Col>
-                            <h5>Fear</h5>
+
+                            <h5 className="mt-3">Fear</h5>
                             <ProgressBar variant="success" now={this.state.fear * 10} label={`${this.state.fear * 10}%`} />
-                        </Col>
-                    </Row>
-                    <Row className="mt-5">
-                        <Col>
-                            <h5>Joy</h5>
+
+                            <h5 className="mt-3">Joy</h5>
                             <ProgressBar variant="success" now={this.state.joy * 10} label={`${this.state.joy * 10}%`} />
-                        </Col>
-                        <Col>
-                            <h5>Negative</h5>
+
+                            <h5 className="mt-3">Negative</h5>
                             <ProgressBar variant="success" now={this.state.negative * 10} label={`${this.state.negative * 10}%`}/>
-                        </Col>
-                    </Row>
-                    <Row className="mt-5">
-                        <Col>
-                            <h5>Postive</h5>
+
+                            <h5 className="mt-3">Postive</h5>
                             <ProgressBar variant="success" now={this.state.positive * 10} label={`${this.state.positive * 10}%`} />
-                        </Col>
-                        <Col>
-                            <h5>Sadness</h5>
+
+                            <h5 className="mt-3">Sadness</h5>
                             <ProgressBar variant="success" now={this.state.sadness* 10} label={`${this.state.sadness* 10}%`} />
-                        </Col>
-                    </Row>
-                    <Row className="mt-5">
-                        <Col>
-                            <h5>Suprise</h5>
+
+                            <h5 className="mt-3">Suprise</h5>
                             <ProgressBar variant="success" now={this.state.suprise * 10} label={`${this.state.surprise * 10}%`}/>
+
+                            <h5 className="mt-3">Trust</h5>
+                            <ProgressBar variant="success" now={this.state.trust * 10} label={`${this.state.trust * 10}%`} />   
                         </Col>
-                        <Col>
-                            <h5>Trust</h5>
-                            <ProgressBar variant="success" now={this.state.trust * 10} label={`${this.state.trust * 10}%`} />
+                        <Col className="ml-5">
+                             <div ref={this.myRef}></div>
                         </Col>
                     </Row>
                 </Container>
