@@ -1,6 +1,7 @@
 import React from 'react';
 import EventCards from '../components/EventCards.js';
 
+import Twitter from '../assets/twitter.png';
 import PressBay from '../assets/pressbay.jpg';
 import DemsAbroad from '../assets/demsabroadfrance.jpg';
 import GiftofLights from '../assets/giftoflights.jpg';
@@ -48,6 +49,8 @@ class Events extends React.Component{
     render(){
         return(
             <div>
+                <h2 style={{textAlign: "center", color: "#274C77", marginBottom: "3%", marginTop: "3%"}}>Featured Events</h2>
+                <p style={{textAlign: "center", marginBottom: "2%"}}><img src={Twitter} style={{width: "5%"}}/>See what people are tweeting about!</p>
                 {mapEvent(events)}
             </div>
         );

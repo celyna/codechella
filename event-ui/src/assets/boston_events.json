@@ -1,0 +1,16 @@
+{
+    "type": "FeatureCollection",
+                                                                                    
+    "features": [
+    { "type": "Feature", "id": 1, "properties": { "EVENT_NAME": "Black Lives Matter Demonstrations", "Location": "128 Elm St, Millbury", "Time": "Every Saturday 9:00-11:00AM", "About": "Water, Posters, paper, and markers will be provided but feel free to bring a poster of your own. We will not stand for racism. Black Lives Matter! #BlackLivesMatter", "LATITUDE": 42.355988, "LONGITUDE": -71.157609}, "geometry": { "type": "Point", "coordinates": [ -71.157609, 42.355988 ] } }
+    ,
+    { "type": "Feature", "id": 2, "properties": { "EVENT_NAME": "Boston Parks Fall Fitness Series: Frankling Park Golf Course Walking Group", "Location": "William Devine Golf Course Clubhouse, One Circuit Drive, Dorchester, MA", "Time": "Saturday, November 21, 9-10AM", "About": "we will be offering virtual classes and a walking group at Franklin Park. Check the individual classes on our calendar below for details. Everyone is welcome at our free classes, no matter what your fitness level is.", "LATITUDE": 42.36571, "LONGITUDE": -71.05729}, "geometry": { "type": "Point", "coordinates": [ -71.05729, 42.36571 ] } }
+    ,
+    { "type": "Feature", "id": 3, "properties": { "EVENT_NAME": "Union Square Farmers Market", "Location": "Union Square Plaza, 70 Union Square, Somerville, MA", "Time": "Saturday 9AM-1PM", "About": "The weather is warmer, the birds are singing, the flowers are in bloom and our favorite community tradition, the Union Square Farmers Market, is just around the corner. But this year, your community living room is taking a break for spring cleaning. You’ve probably heard, the landscape for farmers markets has changed drastically as we all grapple with how best to access nutrient-dense foods in the face of a global pandemic.", "LATITUDE": 42.38914, "LONGITUDE": -71.0047}, "geometry": { "type": "Point", "coordinates": [ -71.0047, 42.38914 ] } }
+    ,
+    { "type": "Feature", "id": 4, "properties": { "EVENT_NAME": "Fun Photography Activity for Homeschoolers", "Location": "Brewer Fountain, Boston Common - Tremont St., Boston, MA", "Time": "Saturday November 21, 10-11:30AM", "About": "Explore Boston from a different angle on a FUN, hands-on homeschooling activity! Educational walking tours are custom-designed to provide homeschoolers with creative and inspiring photo tips. Students will develop lifelong observation skills and gain a renewed appreciation for details in our surroundings. There’s also fascinating historical commentary of the sites along an itinerary.", "LATITUDE": 42.29048, "LONGITUDE": -71.16706}, "geometry": { "type": "Point", "coordinates": [ -71.16706, 42.29048 ] } }
+    ,
+    { "type": "Feature", "id": 5, "properties": { "EVENT_NAME": "Artful Stories: Paintings from Historic New England", "Location": "Eustis Estate, 1424 Canton Ave, Milton, MA", "Time": "Saturday November 21, 11AM-4PM", "About": "Historic New England presents Artful Stories at the Eustis Estate in Milton, Massachusetts. For the first time ever, more than forty of the best works of art from its collection will be on display together.", "LATITUDE": 42.31951, "LONGITUDE": -71.05852}, "geometry": { "type": "Point", "coordinates": [ -71.05852, 42.31951 ] } }
+    
+    ]
+    }
