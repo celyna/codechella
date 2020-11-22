@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
 import Events from './pages/Events';
 import EventOverview from './pages/eventOverview'; 
+import EventsNearMe from './pages/EventsNearMe'
 
 //Other Imports
 import {
@@ -36,12 +37,14 @@ class App extends React.Component{
                 <Nav className="ml-auto">
                     <h5> <Link className="nav-link display-5 font-weight-semibold subheading" to="/">Home</Link></h5>
                     <h5> <Link className="nav-link display-5 font-weight-semibold subheading" to="/Events">Events</Link></h5>
+                    <h5> <Link className="nav-link display-5 font-weight-semibold subheading" to="/EventsNearMe">Around Me</Link></h5>
                 </Nav>
             </Navbar.Collapse>
             </Navbar>
             <Route path="/" exact render={() => <Home />} />
             <Route path="/Events" exact render={() => <Events />} />
             <Route path="/eventOverview/:event" component={EventOverview} />
+            <Route path="/EventsNearMe" component={EventsNearMe} />
         </Container>
       </Router>
     );
