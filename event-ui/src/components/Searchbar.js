@@ -12,7 +12,7 @@ class SearchBar extends React.Component{
   
   handleOnClick = async (event) => {
     await axios.post('/result', {
-      event: 'Taiwan'
+      event: event
     })
     .then(function (response) {
       console.log(response);

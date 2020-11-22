@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Row2 from '../components/Row'
 
 
 class eventOverview extends React.Component{
@@ -22,10 +23,16 @@ class eventOverview extends React.Component{
             positive: 0.0, 
             sadness: 0.0, 
             surprise: 0.0, 
-            trust: 0.0
+            trust: 0.0,
+            tweets: []
         }
     }
     async componentDidMount(){
+        await axios.get('/tweets')
+            .then(res => {
+                console.log(res.data.tweets)
+                this.setState({tweets: res.data.tweets})
+            })
         await axios.get('/search')
             .then(res => {
             let x = res.data.sentiments
@@ -42,11 +49,20 @@ class eventOverview extends React.Component{
                        this.setState({trust: this.state.trust + sent.trust})
                    })
             })
-            console.log(this.state.anger)
+           
+    }
+
+    makeItems = (item) => {
+        let x = []
+        x.push(item[0])
+        x.push(item[1])
+
+        return x.map(x => {
+            return <div><Row2 item={x}/></div>
+        })
     }
 
     render(){
-        console.log(this.props)
         return(
             <div>
                 <Container>
@@ -65,11 +81,11 @@ class eventOverview extends React.Component{
                     <Row className="mt-4">
                         <Col>
                             <h5>Anger</h5>
-                            <ProgressBar variant="success" now={this.state.anger * 10} label={`${this.state.anger * 10}%`} />
+                            <ProgressBar variant="success" now={this.state.anger * 10} label={`${this.state.anger * 100}%`} />
                         </Col>
                         <Col>
                             <h5>Anticipation</h5>
-                            <ProgressBar variant="success" now={this.state.anticipation * 10} label={`${this.state.anticipation * 10}%`} />
+                            <ProgressBar variant="success" now={this.state.anticipation * 10} label={`${this.state.anticipation * 100}%`} />
                         </Col>
                     </Row>
                     <Row className="mt-5">
@@ -113,6 +129,8 @@ class eventOverview extends React.Component{
                         </Col>
                     </Row>
                 </Container>
+                <h5 className="mt-5">Top Tweets</h5>
+                <div style={{marginTop: 10, justifyContent: 'center'}}>{this.makeItems(this.state.tweets)}</div>
                 
             </div>
         )
