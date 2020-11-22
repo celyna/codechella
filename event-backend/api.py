@@ -21,7 +21,7 @@ access_token_secret = key.access_token_secret
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
-api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+api = tweepy.API(auth)
 emolex_file = os.path.join('emolex.txt')
 
 def read_emolex(filepath=None):
@@ -115,14 +115,14 @@ def get_current_time():
 
 @app.route('/result', methods = ['POST'])
 def getEvent():
+    print("Starting sentiment")
     data = request.json
     dataStr = str(data.get('event'));
-    print(dataStr)
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
     myStream.filter(track=[dataStr])
 
-   
+    print("Starting tweets search")
     for tweet in tweepy.Cursor(api.search,
                            q=dataStr,
                            rpp=10,
@@ -131,7 +131,7 @@ def getEvent():
                            lang="en").items():
         tweets.append((tweet.created_at, tweet.text))
     
-    app.run(debug=True)
+    # app.run(debug=True)
     
     return "OK"
 

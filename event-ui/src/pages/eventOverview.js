@@ -73,13 +73,10 @@ class eventOverview extends React.Component{
             .style("stroke-width", "2px")
             .style("opacity", 0.7);
 
-        await axios.get('/tweets')
-            .then(res => {
-                console.log(res.data.tweets)
-                this.setState({tweets: res.data.tweets})
-            })
+        
         await axios.get('/search')
             .then(res => {
+            console.log(res.data.sentiments)
             let x = res.data.sentiments
                x.map(sent =>{
                        this.setState({anger: this.state.anger + sent.anger})
@@ -94,7 +91,11 @@ class eventOverview extends React.Component{
                        this.setState({trust: this.state.trust + sent.trust})
                    })
             })
-           
+        await axios.get('/tweets')
+            .then(res => {
+                console.log(res.data.tweets)
+                this.setState({tweets: res.data.tweets})
+            })
     }
 
     makeItems = (item) => {
@@ -106,7 +107,6 @@ class eventOverview extends React.Component{
             return <div><Row2 item={x}/></div>
         })
     }
-
     render(){
         return(
             <div>
@@ -126,10 +126,10 @@ class eventOverview extends React.Component{
                     <Row className="mt-4">
                         <Col>
                             <h5>Anger</h5>
-                            <ProgressBar variant="success" now={this.state.anger * 10} label={`${this.state.anger * 100}%`} />
+                            <ProgressBar variant="success" now={this.state.anger * 10} label={`${this.state.anger * 10}%`} />
 
                             <h5 className="mt-3">Anticipation</h5>
-                            <ProgressBar variant="success" now={this.state.anticipation * 10} label={`${this.state.anticipation * 100}%`} />
+                            <ProgressBar variant="success" now={this.state.anticipation * 10} label={`${this.state.anticipation * 10}%`} />
 
                             <h5 className="mt-3">Disgust</h5>
                             <ProgressBar variant="success" now={this.state.disgust * 10} label={`${this.state.disgust * 10}%`}  />
@@ -147,7 +147,7 @@ class eventOverview extends React.Component{
                             <ProgressBar variant="success" now={this.state.positive * 10} label={`${this.state.positive * 10}%`} />
 
                             <h5 className="mt-3">Sadness</h5>
-                            <ProgressBar variant="success" now={this.state.sadness* 10} label={`${this.state.sadness* 10}%`} />
+                            <ProgressBar variant="success" now={this.state.sadness * 10} label={`${this.state.sadness* 10}%`} />
 
                             <h5 className="mt-3">Suprise</h5>
                             <ProgressBar variant="success" now={this.state.suprise * 10} label={`${this.state.surprise * 10}%`}/>
