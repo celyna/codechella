@@ -1,6 +1,4 @@
 import React from 'react'
-import EventDetailsInfo from '../components/EventDetailsInfo.js'
-import {events} from './Events.js'
 import * as d3 from 'd3';
 import neighborhoods_json from '../assets/boston_neighborhoods.json';
 import events_json from '../assets/boston_events.json';
